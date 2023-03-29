@@ -3,6 +3,12 @@ const cors=require('cors')
 
 const app=express()
 
+const corsOptions={
+    origin:"http://localhost:3000"
+}
+
+app.use(cors(corsOptions))
+
 app.use(express.json())
 
 app.get("/first",(req,res)=>{
@@ -23,13 +29,14 @@ const userList=[]
 app.post("/saveData",(req,res)=>{
      console.log(req.body)
      userList.push(req.body)
-     res.send("Data Received!!!")
+     console.log(userList)
+     res.send({"statusCode":201,"message":"Data Saved!!!","result":userList})
 })
 
 app.get("/getUserList",(req,res)=>{
     res.send(userList)
 })
 
-app.listen(7878,()=>{
+app.listen(7878 ,()=>{
     console.log('Server started!!!')
 })
